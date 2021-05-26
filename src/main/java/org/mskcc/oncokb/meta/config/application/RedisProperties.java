@@ -5,6 +5,12 @@ public class RedisProperties {
     String password;
     String address;
     String sentinelMasterName;
+    private int expiration;
+
+    public RedisProperties() {
+        this.type = RedisType.SINGLE.getType();
+        this.expiration = 300;
+    }
 
     public String getType() {
         return type;
@@ -36,5 +42,13 @@ public class RedisProperties {
 
     public void setSentinelMasterName(String sentinelMasterName) {
         this.sentinelMasterName = sentinelMasterName;
+    }
+
+    public int getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(int expiration) {
+        this.expiration = expiration;
     }
 }
