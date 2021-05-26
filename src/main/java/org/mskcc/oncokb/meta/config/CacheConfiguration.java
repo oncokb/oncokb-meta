@@ -1,7 +1,7 @@
 package org.mskcc.oncokb.meta.config;
 
 
-import org.mskcc.oncokb.meta.config.application.RedisProperties;
+import org.mskcc.oncokb.meta.config.application.ApplicationProperties;
 import org.mskcc.oncokb.meta.config.application.RedisType;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -16,32 +16,32 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class CacheConfiguration {
     @Bean
-    public RedissonClient redissonClient(RedisProperties redisProperties) throws Exception {
+    public RedissonClient redissonClient(ApplicationProperties applicationProperties) throws Exception {
         Config config = new Config();
-        if (redisProperties.getType().equals(RedisType.SINGLE.getType())) {
+        if (applicationProperties.getRedis().getType().equals(RedisType.SINGLE.getType())) {
             config.useSingleServer()
-                    .setAddress(redisProperties.getAddress())
-                    .setPassword(redisProperties.getPassword());
-        } else if (redisProperties.getType().equals(RedisType.SENTINEL.getType())) {
+                    .setAddress(applicationProperties.getRedis().getAddress())
+                    .setPassword(applicationProperties.getRedis().getPassword());
+        } else if (applicationProperties.getRedis().getType().equals(RedisType.SENTINEL.getType())) {
             config.useSentinelServers()
-                    .setMasterName(redisProperties.getSentinelMasterName())
+                    .setMasterName(applicationProperties.getRedis().getSentinelMasterName())
                     .setCheckSentinelsList(false)
                     .addSentinelAddress(
-                            redisProperties
+                            applicationProperties.getRedis()
                                     .getAddress()
                     )
-                    .setPassword(redisProperties.getPassword());
+                    .setPassword(applicationProperties.getRedis().getPassword());
         } else {
-            throw new Exception("The redis type " + redisProperties.getType() + " is not supported. Only single and master-slave are supported.");
+            throw new Exception("The redis type " + applicationProperties.getRedis().getType() + " is not supported. Only single and master-slave are supported.");
         }
         return Redisson.create(config);
     }
 
     @Bean
-    public javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration(RedisProperties redisProperties, RedissonClient redissonClient) {
+    public javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration(ApplicationProperties applicationProperties, RedissonClient redissonClient) {
         MutableConfiguration<Object, Object> jcacheConfig = new MutableConfiguration<>();
         jcacheConfig.setStatisticsEnabled(true);
-        jcacheConfig.setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, redisProperties.getExpiration())));
+        jcacheConfig.setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, applicationProperties.getRedis().getExpiration())));
         return RedissonConfiguration.fromInstance(redissonClient, jcacheConfig);
     }
 
