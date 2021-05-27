@@ -32,7 +32,7 @@ public abstract class CacheConfiguration {
                     )
                     .setPassword(applicationProperties.getRedis().getPassword());
         } else {
-            throw new Exception("The redis type " + applicationProperties.getRedis().getType() + " is not supported. Only single and master-slave are supported.");
+            throw new Exception("The redis type " + applicationProperties.getRedis().getType() + " is not supported. Only single and sentinel are supported.");
         }
         return Redisson.create(config);
     }
