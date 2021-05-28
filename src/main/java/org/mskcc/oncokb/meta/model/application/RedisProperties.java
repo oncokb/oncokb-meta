@@ -1,4 +1,6 @@
-package org.mskcc.oncokb.meta.config.application;
+package org.mskcc.oncokb.meta.model.application;
+
+import org.mskcc.oncokb.meta.enumeration.RedisType;
 
 public class RedisProperties {
     String type;

@@ -1,4 +1,4 @@
-package org.mskcc.oncokb.meta.config.application;
+package org.mskcc.oncokb.meta.enumeration;
 
 public enum RedisType {
     SINGLE("single"),
