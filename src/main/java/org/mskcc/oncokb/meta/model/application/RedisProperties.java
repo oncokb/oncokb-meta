@@ -3,6 +3,7 @@ package org.mskcc.oncokb.meta.model.application;
 import org.mskcc.oncokb.meta.enumeration.RedisType;
 
 public class RedisProperties {
+    Boolean enabled = false;
     String type;
     String password;
     String address;
@@ -12,6 +13,14 @@ public class RedisProperties {
     public RedisProperties() {
         this.type = RedisType.SINGLE.getType();
         this.expiration = 300;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getType() {
