@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mskcc.oncokb.meta</groupId>
     <artifactId>oncokb-meta</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>OncoKB Meta</name>
     <description>Models that can be shared with other projects</description>
     <properties>

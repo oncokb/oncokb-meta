@@ -2,7 +2,8 @@ package org.mskcc.oncokb.meta.enumeration;
 
 public enum RedisType {
     SINGLE("single"),
-    SENTINEL("sentinel");
+    SENTINEL("sentinel"),
+    CLUSTER("cluster");
 
     private final String type;
 
