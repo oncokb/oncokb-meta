@@ -8,11 +8,13 @@ public class RedisProperties {
     String password;
     String address;
     String sentinelMasterName;
-    private int expiration;
+    Integer expiration = 300;
+    Integer timeout = 3000;
+    Integer retryAttempts = 3;
+    Integer retryInterval = 1500;
 
     public RedisProperties() {
         this.type = RedisType.SINGLE.getType();
-        this.expiration = 300;
     }
 
     public Boolean getEnabled() {
@@ -55,11 +57,35 @@ public class RedisProperties {
         this.sentinelMasterName = sentinelMasterName;
     }
 
-    public int getExpiration() {
+    public Integer getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(int expiration) {
+    public void setExpiration(Integer expiration) {
         this.expiration = expiration;
+    }
+
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
+    }
+
+    public Integer getRetryAttempts() {
+        return retryAttempts;
+    }
+
+    public void setRetryAttempts(Integer retryAttempts) {
+        this.retryAttempts = retryAttempts;
+    }
+
+    public Integer getRetryInterval() {
+        return retryInterval;
+    }
+
+    public void setRetryInterval(Integer retryInterval) {
+        this.retryInterval = retryInterval;
     }
 }
